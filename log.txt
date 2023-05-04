@@ -1,0 +1,14 @@
+
+======================================================================               
+      Date end execution: 2023-05-04_09-49-43_
+======================================================================
+Total documents imported: 8
+Indexed documents: 4
+Documents not found, not indexed: 4
+
+======================================================================               
+      Date end execution: 2023-05-04_09-55-44_
+======================================================================
+Total documents imported: 4
+Indexed documents: 4
+Documents not found, not indexed: 0
