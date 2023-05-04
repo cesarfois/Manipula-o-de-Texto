@@ -4,46 +4,59 @@
 
 import os
 import time
+import csv
 import shutil
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 
 def on_created(event):
-    print("creado")
     source = "C:/Users/DDR4/Desktop/pasta_a/"
     destination = "C:/Users/DDR4/Desktop/pasta_b/"
-    allfiles = os.listdir(source)
+    print("\033[1;33m" + "Novo Documento Creado identificado no seguinte endereço: " + "\033[1;39m" + source  )    
+    namefull = os.path.basename(event.src_path)
+    name = os.path.splitext(namefull)[0]
 
-    #Le o arquivo de dados
-    
-   
+
+
+    print(namefull)
+    #allfiles = os.listdir(source)
+    #print(allfiles)
     #Le o nome do documento
-    with open("C:/Users/DDR4/Desktop/pasta_a/doc.txt", 'r', encoding='utf-8') as arquivo:
-        tipo_arquivo = os.path.splitext(arquivo.name)[1]
-        print(tipo_arquivo.lstrip("."))
-        name = os.path.basename(arquivo.name)
-        name = os.path.splitext(name)[0]
+    #with open(f"C:/Users/DDR4/Desktop/pasta_a/{namefull}", 'r', encoding='utf-8') as arquivo:
+        #tipo_arquivo = os.path.splitext(arquivo.name)[1]
+        #print(tipo_arquivo.lstrip("."))       
 
-    with open('indexadores.csv', 'r', encoding='utf-8') as indexador:
-        indexador = indexador.readlines()
-        print(indexador)
-        for i in indexador:
-            if name == indexador[i]:
-                print(indexador[i])
-                pass
-
+    # Mover o arquivo para destination
+    shutil.move(f"{source}{namefull}", f"{destination}{namefull}")    
+     
+    # Abre o arquivo de indexação, procura a correspondencia e salva na lista
+    lista = []
+    with open('indexadores.csv', mode='r') as file:
+        data_csv = csv.reader(file, delimiter=';')
+        for i, linha in enumerate(data_csv):
+            print(i, linha)
+            if linha[0] == namefull:  
+                print('achei')
+                for j in linha:
+                    lista.append(j)
+    
     # Cria o arquivo dwcontrol
     with open(f'C:/Users/DDR4/Desktop/pasta_b/{name}.dwcontrol', 'w', encoding='utf-8') as arquivo:
-        
-        #name = name.replace(source, '').lstrip()
-        print(name)
-        
+
+
     #OBRIGATORIO <ControlStatements xmlns="http://dev.docuware.com/Jobs/Control" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         arquivo.write("<ControlStatements xmlns=\"http://dev.docuware.com/Jobs/Control\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n\n")
         arquivo.write("<Page>\n\n")
 
-        arquivo.write(f"<Field dbName=\"EMPRESA\" type=\"Text\" value=\"{name}\"/>\n")
+        
+        arquivo.write(f"<Field dbName=\"NOME_ARQUIVO\" type=\"Text\" value=\"{lista[0]}\"/>\n")
+        arquivo.write(f"<Field dbName=\"EMPRESA\" type=\"Text\" value=\"{lista[1]}\"/>\n")
+        arquivo.write(f"<Field dbName=\"NO_DE_CONTRATO\" type=\"Text\" value=\"{lista[2]}\"/>\n")
+        arquivo.write(f"<Field dbName=\"STATUS\" type=\"Text\" value=\"{lista[3]}\"/>\n")
+        arquivo.write(f"<Field dbName=\"RESPONSAVEL\" type=\"Text\" value=\"{lista[4]}\"/>\n")
+        arquivo.write(f"<Field dbName=\"REVISOR\" type=\"Text\" value=\"{lista[5]}\"/>\n")
+        arquivo.write(f"<Field dbName=\"TIPO_DE_DOCUMENTO\" type=\"Text\" value=\"{lista[6]}\"/>\n")
     
 
         # Obrigatorio  
@@ -66,8 +79,6 @@ def on_moved(event):
     print('movido')
 
 
-
-
 if __name__ == "__main__":
     event_handler = FileSystemEventHandler()
     # Calling functions
@@ -82,11 +93,11 @@ if __name__ == "__main__":
     observer.start()
 
 try:
-    print("Monitorando a pasta seleccionada")
+    print("\033[0;32m" + "Monitorando a pasta seleccionada")
     while True:        
         time.sleep(1)
 except KeyboardInterrupt:
-    print('Monitoramento cancelado')
+    print("\033[1;31m" + 'Monitoramento cancelado' + "\033[1;39m")
     observer.stop()
 observer.join()
 

@@ -1,0 +1,47 @@
+import os
+import shutil
+
+def mover_arquivo(src_path, dest_path):
+    # verifique se o arquivo de destino já existe
+    if os.path.exists(dest_path):
+        # se o arquivo de destino já existir, crie um novo nome para o arquivo
+        base_filename, ext = os.path.splitext(os.path.basename(src_path))
+        i = 1
+        while os.path.exists(os.path.join(dest_path, f"{base_filename}_{i}{ext}")):
+            i += 1
+        new_filename = f"{base_filename}_{i}{ext}"
+        dest_path = os.path.join(dest_path, new_filename)
+    
+    # mova o arquivo para o destino
+    shutil.move(src_path, dest_path)
+    print(f"O arquivo {src_path} foi movido para {dest_path} com sucesso!")
+
+
+
+# Para mover arquivos usando a função shutil.move do Python sem sobrescrever arquivos existentes, 
+
+# você pode verificar se o arquivo de destino já existe antes de mover o arquivo.
+
+# Aqui está um exemplo de como você pode mover um arquivo para uma nova pasta sem sobrescrever arquivos existentes:
+
+# A função mover_arquivo recebe dois argumentos: o caminho completo do arquivo de origem (src_path) e o caminho completo da pasta de destino (dest_path). 
+
+# Primeiro, a função verifica se o arquivo de destino já existe usando a função os.path.exists. Se o arquivo de destino já existir, 
+
+# a função cria um novo nome para o arquivo adicionando um número sequencial ao nome do arquivo de origem. Para fazer isso, a função usa
+
+# a função os.path.splitext para separar o nome do arquivo e a extensão do arquivo, e, em seguida, usa um loop while para verificar se um arquivo 
+
+
+# com o nome modificado já existe na pasta de destino. Se um arquivo com o novo nome já existir, a função incrementa o número sequencial e tenta novamente. 
+
+
+# Quando a função encontrar um nome de arquivo que ainda não exista, ela usa esse nome para o arquivo de destino.
+
+# Depois de criar um nome de arquivo exclusivo, a função move o arquivo de origem para o destino usando a função shutil.move. 
+
+
+# Se o arquivo de destino já existir, a função criará um novo nome de arquivo exclusivo para o arquivo e moverá o arquivo com o novo nome para a pasta de destino.
+
+
+# Por fim, a função imprime uma mensagem informando que o arquivo foi movido com sucesso.

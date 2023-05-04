@@ -18,13 +18,16 @@ with open('indexadores.csv', 'r', encoding='utf-8') as indexador:
         for i in indexador:
             print(i[0])
               
-   
-    
-    
+from termcolor import colored
+
+print(colored('Error Test!!!', 'red'))
+print(colored('Warning Test!!!', 'yellow'))
+print(colored('Success Test!!!', 'green'))
     # # iterando as linhas
     # for i in arquivo:
     #     # string.replace(oldvalue, newvalue, count)
     #     i = i.replace('linha', 'novo', 1)
     #     print(i, end='')
-
+RED   =     "\033[1;31m" 
+print( "\033[1;31m"   + "ERROR!" + "Something went wrong...")
 

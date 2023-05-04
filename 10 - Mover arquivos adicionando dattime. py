@@ -1,0 +1,43 @@
+import os
+import shutil
+from datetime import datetime
+
+data_hora_atual = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+print(data_hora_atual)
+
+def mover_arquivo(src_path, dest_path):
+    # obter a data e a hora atuais
+    data_hora_atual = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    print(datetime.now)
+
+    # separar o nome do arquivo e a extensão
+    nome_arquivo, extensao = os.path.splitext(os.path.basename(src_path))
+
+    # criar um novo nome para o arquivo
+    novo_nome_arquivo = f"{nome_arquivo}_{data_hora_atual}{extensao}"
+
+    # concatenar o novo nome com o caminho da pasta de destino
+    novo_caminho = os.path.join(dest_path, novo_nome_arquivo)
+
+    # mover o arquivo para o destino
+    shutil.move(src_path, novo_caminho)
+    print(f"O arquivo {src_path} foi movido para {novo_caminho} com sucesso!")
+
+
+# Neste exemplo, a função mover_arquivo recebe dois argumentos: o caminho completo do arquivo de origem (src_path)
+
+# e o caminho completo da pasta de destino (dest_path). Primeiro, a função usa o módulo datetime do Python 
+
+# para obter a data e a hora atuais no formato "YYYY-MM-DD_HH-MM-SS". Em seguida, a função usa a função os.path.splitext 
+
+# para separar o nome do arquivo e a extensão do arquivo de origem.
+
+# Depois de separar o nome do arquivo e a extensão, a função cria um novo nome para o arquivo de destino adicionando a data e a hora atuais ao nome do arquivo. 
+
+# Em seguida, a função usa a função os.path.join para concatenar o novo nome com o caminho da pasta de destino e criar o caminho completo para o arquivo de destino.
+
+# Por fim, a função usa a função shutil.move para mover o arquivo de origem para o novo caminho de destino com o novo nome de arquivo. A função imprime uma mensagem
+
+# informando que o arquivo foi movido com sucesso.

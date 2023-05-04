@@ -1,4 +1,5 @@
-nome do doc;Empresa;numero de contrato;status;responsavel;Revisor
-doc;Agropeca LTDA;Cont - 0001;Aprovado;Marcos;Cesar
-arquivopdf;CRF Digital ;Cont - 0002;Aprovado;Javier;Vinicius
-apresentation;Connector ME;Cont - 0003;Aprovado;Graciela;Prisicila
+nome do doc;Empresa;numero de contrato;status;responsavel;Revisor;Tipo_De_Documento
+Doc.txt;Agropeca LTDA;Cont - 0001;Aprovado;Marcos;Cesar;Contrato
+Manual.pdf;CRF Digital ;Cont - 0002;Aprovado;Javier;Vinicius;Contrato
+Apresentation.pptx;Connector ME;Cont - 0003;Aprovado;Graciela;Prisicila;Contrato
+Relatorio.docx;Connector ME;Cont - 0003;Aprovado;Graciela;Prisicila;Contrato
